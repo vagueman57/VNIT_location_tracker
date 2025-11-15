@@ -1,0 +1,50 @@
+{
+  "nodes": {
+    "main_gate": { "id": "main_gate", "name": "Main Gate", "lat": 21.12768, "lng": 79.05010 },
+    "admin": { "id": "admin", "name": "Admin Building", "lat": 21.12890, "lng": 79.05095 },
+
+    "academic_road_1": { "id": "academic_road_1", "name": "Academic Road 1", "lat": 21.12980, "lng": 79.05180 },
+    "academic_road_2": { "id": "academic_road_2", "name": "Academic Road 2", "lat": 21.12910, "lng": 79.05320 },
+    "academic_road_3": { "id": "academic_road_3", "name": "Academic Road 3", "lat": 21.12820, "lng": 79.05410 },
+
+    "library": { "id": "library", "name": "Library", "lat": 21.12835, "lng": 79.05275 },
+    "oat": { "id": "oat", "name": "OAT", "lat": 21.12755, "lng": 79.05365 },
+
+    "cse": { "id": "cse", "name": "CSE Department", "lat": 21.12950, "lng": 79.05480 },
+    "eee": { "id": "eee", "name": "EEE Department", "lat": 21.13010, "lng": 79.05390 },
+    "mech": { "id": "mech", "name": "Mechanical Department", "lat": 21.13045, "lng": 79.05230 },
+    "civil": { "id": "civil", "name": "Civil Department", "lat": 21.12900, "lng": 79.05510 },
+    "chem": { "id": "chem", "name": "Chemical Department", "lat": 21.12790, "lng": 79.05560 },
+
+    "sports": { "id": "sports", "name": "Sports Complex", "lat": 21.12595, "lng": 79.05120 },
+
+    "hostel2": { "id": "hostel2", "name": "Hostel 2", "lat": 21.12650, "lng": 79.04985 },
+    "hostel6": { "id": "hostel6", "name": "Hostel 6", "lat": 21.12495, "lng": 79.05280 },
+    "girls_hostel": { "id": "girls_hostel", "name": "Girls Hostel", "lat": 21.12940, "lng": 79.04930 },
+
+    "temple_gate": { "id": "temple_gate", "name": "Temple Gate", "lat": 21.12530, "lng": 79.04860 }
+  },
+
+  "edges": {
+    "main_gate": ["admin", "hostel2", "girls_hostel", "temple_gate"],
+    "admin": ["main_gate", "academic_road_1"],
+
+    "academic_road_1": ["admin", "academic_road_2", "mech"],
+    "academic_road_2": ["academic_road_1", "academic_road_3", "library", "eee"],
+    "academic_road_3": ["academic_road_2", "oat", "chem", "civil"],
+
+    "library": ["academic_road_2"],
+    "oat": ["academic_road_3"],
+    "cse": ["eee"],
+    "eee": ["academic_road_2", "cse"],
+    "mech": ["academic_road_1"],
+    "civil": ["academic_road_3"],
+    "chem": ["academic_road_3"],
+    "sports": ["hostel6", "academic_road_1"],
+
+    "hostel2": ["main_gate"],
+    "hostel6": ["sports", "academic_road_3"],
+    "girls_hostel": ["main_gate"],
+    "temple_gate": ["main_gate"]
+  }
+}

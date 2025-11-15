@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus Navigation & Tracking App</title>
+
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+
+</head>
+
+<body>
+
+
+<!-- Top Bar with Welcome + Logout -->
+<div style="display:flex; justify-content:space-between; align-items:center; padding:10px; background:#f3f3f3;">
+    <h3 style="margin:0;">Welcome, <%= user.name %>!</h3>
+
+    <button onclick="window.location.href='/logout'"
+            style="
+              padding:6px 12px;
+              background:red;
+              color:white;
+              border:none;
+              border-radius:5px;
+              cursor:pointer;
+            ">
+        Logout
+    </button>
+</div>
+
+
+<!-- USERNAME MODAL -->
+<div id="nameModal">
+  <div class="modal-content">
+    <h2>Enter display name</h2>
+    <input type="text" id="usernameInput" placeholder="Your name" />
+    <button id="joinBtn">Join</button>
+  </div>
+</div>
+
+<!-- SEARCH BAR -->
+<div id="searchContainer">
+    <input type="text" id="placeSearch"
+           placeholder="Search location (Library, Admin, Hostel 6...)" />
+    <button id="searchBtn" class="btn">GO</button>
+    <button id="clearRoute" class="btn btn-clear">Clear</button>
+</div>
+
+<!-- DIRECTIONS PANEL -->
+<div id="directionsPanel">
+    <h3>Directions</h3>
+    <ul id="directionsList"></ul>
+</div>
+
+<!-- MAP -->
+<div id="map"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet-src.min.js"></script>
+<script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+<script src="/js/script.js"></script>
+
+</body>
+</html>

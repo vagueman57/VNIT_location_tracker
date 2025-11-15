@@ -1,0 +1,45 @@
+
+---
+
+## ⚙️ Tech Stack
+
+| Layer | Technology |
+|-------|-------------|
+| **Frontend** | HTML5, CSS3, JavaScript, [Leaflet.js](https://leafletjs.com/) |
+| **Backend** | Node.js, Express.js |
+| **Realtime Communication** | Socket.io |
+| **Templating Engine** | EJS |
+| **Map Tiles** | OpenStreetMap |
+| **Geolocation** | HTML5 Geolocation API |
+
+---
+
+## 🧩 How It Works
+
+### 1️⃣ User Joins
+- When the page loads, a modal asks for the user's name.
+- The name is sent to the server via the `join` event.
+
+### 2️⃣ Location Tracking Starts
+- Browser continuously watches the user's location using `navigator.geolocation.watchPosition()`.
+- Coordinates (`latitude`, `longitude`) are sent to the server via `send-location`.
+
+### 3️⃣ Real-Time Broadcast
+- The server receives the data and broadcasts it to **all clients** via `receive-location`.
+
+### 4️⃣ Map Updates
+- Each client updates the corresponding user's marker position.
+- A **polyline trail** is drawn showing movement history.
+
+### 5️⃣ Disconnection Handling
+- When a user leaves, the server emits a `user-disconnected` event.
+- Their marker and trail are removed from all connected clients’ maps.
+
+---
+
+## 💻 Installation & Setup
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/yourusername/realtime-location-tracker.git
+cd realtime-location-tracker
