@@ -14,14 +14,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # STEP 2: Set up Docker Buildx (needed for building images)
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+      # STEP 2: Install curl (Ubuntu sometimes needs this)
+      - name: Install curl
+        run: sudo apt-get install -y curl
 
-      # STEP 3: Build Docker image (checks Dockerfile correctness)
+      # STEP 3: Validate Dockerfile by building the image
       - name: Build Docker image
         run: docker build -t vnit-map-backend .
 
       # STEP 4: Trigger Render Deploy Hook
-      - name: Deploy to Render
-        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+      - name: Trigger Render Deployment
+        run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"

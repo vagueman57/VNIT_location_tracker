@@ -1,7 +1,7 @@
 const redis = require("redis");
 
 const client = redis.createClient({
-  url: "redis://redis-server:6379"
+  url: process.env.REDIS_URL   // from Upstash
 });
 
 client.on("connect", () => {
