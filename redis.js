@@ -1,27 +1,11 @@
 const Redis = require("ioredis");
 
-let redisClient;
+const redisClient = new Redis(process.env.REDIS_URL, {
+  tls: process.env.REDIS_URL.includes("rediss://") ? {} : undefined,
+  retryStrategy: () => 2000,
+});
 
-try {
-  const redisURL = process.env.REDIS_URL || "redis://localhost:6379";
-
-  redisClient = new Redis(redisURL, {
-    tls: redisURL.startsWith("rediss://") ? {} : undefined,
-    retryStrategy(times) {
-      return Math.min(times * 2000, 10000);
-    }
-  });
-
-  redisClient.on("connect", () => {
-    console.log("🔴 Redis Connected");
-  });
-
-  redisClient.on("error", (err) => {
-    console.error("Redis Error ➜", err);
-  });
-
-} catch (error) {
-  console.error("❌ Redis initialization failed:", error);
-}
+redisClient.on("connect", () => console.log("🔴 Redis Connected"));
+redisClient.on("error", (err) => console.error("Redis Error ➜", err));
 
 module.exports = redisClient;
