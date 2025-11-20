@@ -1,17 +1,27 @@
-const redis = require("redis");
+const Redis = require("ioredis");
 
-const client = redis.createClient({
-  url: process.env.REDIS_URL   // from Upstash
-});
+let redisClient;
 
-client.on("connect", () => {
-  console.log("🔴 Redis Connected");
-});
+try {
+  const redisURL = process.env.REDIS_URL || "redis://localhost:6379";
 
-client.on("error", (err) => {
-  console.log("Redis Error ➜", err);
-});
+  redisClient = new Redis(redisURL, {
+    tls: redisURL.startsWith("rediss://") ? {} : undefined,
+    retryStrategy(times) {
+      return Math.min(times * 2000, 10000);
+    }
+  });
 
-client.connect();
+  redisClient.on("connect", () => {
+    console.log("🔴 Redis Connected");
+  });
 
-module.exports = client;
+  redisClient.on("error", (err) => {
+    console.error("Redis Error ➜", err);
+  });
+
+} catch (error) {
+  console.error("❌ Redis initialization failed:", error);
+}
+
+module.exports = redisClient;
