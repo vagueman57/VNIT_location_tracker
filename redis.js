@@ -1,8 +1,8 @@
 const Redis = require("ioredis");
 
 const redisClient = new Redis(process.env.REDIS_URL, {
-  tls: process.env.REDIS_URL.includes("rediss://") ? {} : undefined,
-  retryStrategy: () => 2000,
+  tls: process.env.REDIS_URL?.startsWith("rediss://") ? {} : undefined,
+  retryStrategy: () => 2000
 });
 
 redisClient.on("connect", () => console.log("🔴 Redis Connected"));
