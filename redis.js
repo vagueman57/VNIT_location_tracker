@@ -1,11 +1,14 @@
-const Redis = require("ioredis");
+import Redis from "ioredis";
 
-const redisClient = new Redis(process.env.REDIS_URL, {
-  tls: process.env.REDIS_URL?.startsWith("rediss://") ? {} : undefined,
-  retryStrategy: () => 2000
+const redis = new Redis(process.env.REDIS_URL, {
+  tls: {
+    rejectUnauthorized: false,
+  },
+  maxRetriesPerRequest: 0,       // avoids crash on retry
+  enableAutoPipelining: true,
 });
 
-redisClient.on("connect", () => console.log("🔴 Redis Connected"));
-redisClient.on("error", (err) => console.error("Redis Error ➜", err));
+redis.on("connect", () => console.log("⚡ Redis Connected"));
+redis.on("error", (err) => console.error("Redis Error ➜", err));
 
-module.exports = redisClient;
+export default redis;
